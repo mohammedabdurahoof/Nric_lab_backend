@@ -1,5 +1,7 @@
 // src/types.ts
 
+import { Schema } from "mongoose";
+
 // Using IStudent instead of User to represent the document in the database
 export interface IStudent {
   name: string;
@@ -33,3 +35,15 @@ export interface ITransaction {
   amount: number;
   // ... and so on for all your interfaces
 }
+
+export interface IFine {
+  userId: Schema.Types.ObjectId; 
+  reason: string;
+  amount: number;
+  status: "completed" | "unpaid" | "uncompleted";
+  paidAmount?: number;
+  remainingAmount?: number;
+  paidDate?: Date;
+}
+
+export interface IFineModel extends IFine, Document {}

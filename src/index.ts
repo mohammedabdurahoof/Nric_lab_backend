@@ -6,6 +6,7 @@ import connectDB from "./config/db";
 // Import routes
 import studentsRoutes from "./routes/studentsRoutes";
 import authRoutes from "./routes/authRoutes";
+import fineRoutes from "./routes/fineRoutes";
 
 // Load env vars
 dotenv.config();
@@ -34,10 +35,10 @@ app.get("/", (req: Request, res: Response) => {
 // Mount Routers
 app.use("/api/students", studentsRoutes);
 app.use("/api/users", authRoutes);
+app.use("/api/fines", fineRoutes);
 // ... other routes
 
 // Start the server
 app.listen(PORT, () => {
   console.log(`🚀 Server is running on http://localhost:${PORT}`);
 });
-

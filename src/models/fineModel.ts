@@ -1,26 +1,26 @@
-import mongoose, { Schema } from 'mongoose';
-import { IFineModel } from '../types';
+import mongoose, { Schema } from "mongoose";
+import { IFineModel } from "../types";
 
 const fineSchema: Schema = new Schema(
   {
     userId: {
       type: Schema.Types.ObjectId,
       required: true,
-      ref: 'Student', // Creates a reference to the Student model
+      ref: "Student", // Creates a reference to the Student model
     },
     reason: {
       type: String,
-      required: [true, 'Please provide a reason for the fine'],
+      required: [true, "Please provide a reason for the fine"],
     },
     amount: {
       type: Number,
-      required: [true, 'Please provide the fine amount'],
+      required: [true, "Please provide the fine amount"],
     },
     status: {
       type: String,
       required: true,
-      enum: ["completed", "unpaid", "uncompleted"],
-      default: 'unpaid',
+      enum: ["paid", "unpaid", "partial"],
+      default: "unpaid",
     },
     paidAmount: {
       type: Number,
@@ -39,9 +39,9 @@ const fineSchema: Schema = new Schema(
 );
 
 // Middleware to calculate remainingAmount before saving
-fineSchema.pre<IFineModel>('save', function (next) {
+fineSchema.pre<IFineModel>("save", function (next) {
   this.remainingAmount = this.amount - (this.paidAmount || 0);
   next();
 });
 
-export default mongoose.model<IFineModel>('Fine', fineSchema);
+export default mongoose.model<IFineModel>("Fine", fineSchema);

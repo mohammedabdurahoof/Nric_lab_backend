@@ -22,7 +22,7 @@ export const createFine = async (req: Request, res: Response) => {
 export const getAllFines = async (req: Request, res: Response) => {
   try {
     // Populate 'userId' to get student's name and adNo along with the fine
-    const fines = await Fine.find({}).populate('userId', 'name adNo');
+    const fines = await Fine.find({}).populate('userId', 'name adNo class');
     res.status(200).json(fines);
   } catch (error) {
     res.status(500).json({ message: 'Server Error' });
